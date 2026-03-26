@@ -1,0 +1,36 @@
+{
+  "id": "tabletop-toolkit",
+  "title": "Tabletop Toolkit",
+  "description": "A lightweight Party HUD for Pathfinder 2e. Shows HP, resources, and conditions at a glance — without opening character sheets.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": { "minimum": "6.0.0" }
+      }
+    ]
+  },
+  "esmodules": ["dist/index.js"],
+  "styles": ["dist/style.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "authors": [
+    {
+      "name": "msilva"
+    }
+  ],
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

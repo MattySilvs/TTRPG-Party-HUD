@@ -1,0 +1,51 @@
+<div class="tbtk-party-hud" id="tbtk-party-hud">
+  <header class="tbtk-hud-header">
+    <span class="tbtk-hud-title">{{localize "TBTK.PartyHud.Title"}}</span>
+    <button class="tbtk-hud-toggle" title="{{localize "TBTK.PartyHud.Collapse"}}">&#x2013;</button>
+  </header>
+
+  <div class="tbtk-hud-body">
+    {{#each members}}
+    <div class="tbtk-member {{#if this.conditionsExpanded}}expanded{{/if}}"
+         data-actor-id="{{this.id}}">
+
+      <div class="tbtk-member-row">
+        <img class="tbtk-member-avatar" src="{{this.img}}" alt="{{this.name}}" />
+
+        <div class="tbtk-member-info">
+          <span class="tbtk-member-name">{{this.name}}</span>
+
+          <div class="tbtk-hp-bar-wrap" title="{{this.hp.value}} / {{this.hp.max}} HP">
+            <div class="tbtk-hp-bar" style="width: {{this.hpPercent}}%;"></div>
+            {{#if ../showFullData}}
+            <span class="tbtk-hp-label">{{this.hp.value}}&thinsp;/&thinsp;{{this.hp.max}}</span>
+            {{/if}}
+          </div>
+
+          {{#if (and ../showFullData this.resource)}}
+          <div class="tbtk-resource-bar-wrap" title="{{this.resource.label}}: {{this.resource.value}} / {{this.resource.max}}">
+            <div class="tbtk-resource-bar" style="width: {{this.resourcePercent}}%;"></div>
+            <span class="tbtk-resource-label">{{this.resource.label}} {{this.resource.value}}/{{this.resource.max}}</span>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+
+      {{#if this.conditionsExpanded}}
+      <div class="tbtk-conditions">
+        {{#if this.conditions.length}}
+          {{#each this.conditions}}
+          <span class="tbtk-condition-tag">
+            {{this.name}}{{#if this.value}} {{this.value}}{{/if}}
+          </span>
+          {{/each}}
+        {{else}}
+          <span class="tbtk-no-conditions">{{localize "TBTK.PartyHud.NoConditions"}}</span>
+        {{/if}}
+      </div>
+      {{/if}}
+
+    </div>
+    {{/each}}
+  </div>
+</div>

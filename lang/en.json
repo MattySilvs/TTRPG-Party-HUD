@@ -1,0 +1,21 @@
+{
+  "TBTK": {
+    "PartyHud": {
+      "Title": "Party",
+      "Collapse": "Collapse",
+      "Expand": "Expand",
+      "HP": "HP",
+      "NoConditions": "No active conditions"
+    },
+    "Settings": {
+      "HudEnabled": {
+        "Name": "Enable Party HUD",
+        "Hint": "Show the Party HUD panel on the game canvas."
+      },
+      "RestrictToHpOnly": {
+        "Name": "Restrict player visibility",
+        "Hint": "When enabled, players only see HP bars for other party members. When disabled (default), players see full data for everyone."
+      }
+    }
+  }
+}

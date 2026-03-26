@@ -1,0 +1,183 @@
+// ── Tabletop Toolkit — Party HUD ──────────────────────────────────────────
+
+$hud-bg: rgba(20, 20, 20, 0.88);
+$hud-border: rgba(180, 150, 90, 0.6);
+$hud-accent: #c8a84b;
+$hp-green: #4caf7d;
+$hp-yellow: #e0b820;
+$hp-red: #d44;
+$resource-blue: #5b8dd9;
+$text-main: #e8e0d0;
+$text-dim: #9a9080;
+$radius: 6px;
+$panel-width: 240px;
+
+#tbtk-party-hud {
+  position: fixed;
+  bottom: 80px;
+  left: 16px;
+  width: $panel-width;
+  background: $hud-bg;
+  border: 1px solid $hud-border;
+  border-radius: $radius;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  font-family: "Signika", sans-serif;
+  font-size: 13px;
+  color: $text-main;
+  z-index: 60;
+  user-select: none;
+}
+
+// ── Header ───────────────────────────────────────────────────────────────
+
+.tbtk-hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-bottom: 1px solid $hud-border;
+  cursor: default;
+}
+
+.tbtk-hud-title {
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $hud-accent;
+}
+
+.tbtk-hud-toggle {
+  background: none;
+  border: none;
+  color: $text-dim;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+
+  &:hover { color: $text-main; }
+}
+
+// ── Member rows ──────────────────────────────────────────────────────────
+
+.tbtk-hud-body {
+  padding: 6px 0;
+}
+
+.tbtk-member {
+  padding: 4px 10px;
+  transition: background 0.1s;
+
+  &:hover { background: rgba(255, 255, 255, 0.04); }
+}
+
+.tbtk-member-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.tbtk-member-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid $hud-border;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.tbtk-member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tbtk-member-name {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+// ── HP bar ───────────────────────────────────────────────────────────────
+
+.tbtk-hp-bar-wrap,
+.tbtk-resource-bar-wrap {
+  position: relative;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+
+.tbtk-hp-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+
+  // Color shifts by HP %
+  background: $hp-green;
+
+  .tbtk-member:has(.tbtk-hp-bar[style*="width: 5"]) & { background: $hp-yellow; }
+  .tbtk-member:has(.tbtk-hp-bar[style*="width: 4"]) & { background: $hp-yellow; }
+  .tbtk-member:has(.tbtk-hp-bar[style*="width: 3"]) & { background: $hp-yellow; }
+  .tbtk-member:has(.tbtk-hp-bar[style*="width: 2"]) & { background: $hp-red; }
+  .tbtk-member:has(.tbtk-hp-bar[style*="width: 1"]) & { background: $hp-red; }
+}
+
+.tbtk-resource-bar {
+  height: 100%;
+  border-radius: 4px;
+  background: $resource-blue;
+  transition: width 0.3s ease;
+}
+
+.tbtk-hp-label,
+.tbtk-resource-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+// ── Conditions drawer ────────────────────────────────────────────────────
+
+.tbtk-conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 5px 0 2px 36px;
+  animation: tbtk-slide-down 0.12s ease;
+}
+
+@keyframes tbtk-slide-down {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tbtk-condition-tag {
+  background: rgba(180, 80, 60, 0.35);
+  border: 1px solid rgba(200, 100, 80, 0.5);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 11px;
+  color: #f0c8b0;
+  white-space: nowrap;
+}
+
+.tbtk-no-conditions {
+  font-size: 11px;
+  color: $text-dim;
+  font-style: italic;
+}
