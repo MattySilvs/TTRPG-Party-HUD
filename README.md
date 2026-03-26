@@ -2,7 +2,7 @@
 
 A lightweight [FoundryVTT](https://foundryvtt.com/) module for **Pathfinder 2e** that adds a persistent Party HUD panel — showing every party member's HP, resources, and conditions at a glance without opening character sheets.
 
-![Party HUD screenshot placeholder](docs/screenshot.png)
+[Party HUD screenshot placeholder - to be filled]
 
 ## Features
 
