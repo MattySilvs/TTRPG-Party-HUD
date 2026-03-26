@@ -39,21 +39,29 @@ export function getPrimaryResource(
   return null;
 }
 
+export interface ConditionData {
+  id: string;
+  name: string;
+  value: number | null;
+}
+
 /**
- * Returns active condition names for a PF2e actor.
+ * Returns active conditions for an actor, including the embedded item ID
+ * needed to remove them programmatically.
  * Falls back to core Active Effects for non-PF2e systems.
  */
-export function getConditions(actor: Actor): { name: string; value: number | null }[] {
+export function getConditions(actor: Actor): ConditionData[] {
   if (isPF2e()) {
     const conditions = (actor as any).conditions?.active ?? [];
     return conditions.map((c: any) => ({
-      name: c.name,
-      value: c.system?.value?.value ?? null,
+      id: c.id as string,
+      name: c.name as string,
+      value: (c.system?.value?.value as number) ?? null,
     }));
   }
 
   // Core fallback: read active effects that aren't suppressed
   return actor.effects
     .filter((e) => !e.disabled)
-    .map((e) => ({ name: e.name ?? e.label, value: null }));
+    .map((e) => ({ id: e.id!, name: e.name ?? (e as any).label ?? "", value: null }));
 }

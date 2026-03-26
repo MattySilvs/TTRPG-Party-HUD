@@ -74,6 +74,28 @@ export class PartyHud extends Application {
       const actor = game.actors?.get(actorId);
       actor?.sheet?.render(true);
     });
+
+    // Right-click a condition tag → remove that condition from the actor
+    html.find(".tbtk-condition-tag").on("contextmenu", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const tag = $(event.currentTarget);
+      const conditionId = tag.data("condition-id") as string;
+      const actorId = tag.closest(".tbtk-member").data("actor-id") as string;
+      if (!conditionId || !actorId) return;
+
+      const actor = game.actors?.get(actorId);
+      if (!actor) return;
+
+      // Only allow removal if the user owns this actor or is GM
+      if (!actor.isOwner) {
+        ui.notifications?.warn("You don't have permission to modify this character's conditions.");
+        return;
+      }
+
+      actor.deleteEmbeddedDocuments("Item", [conditionId]);
+    });
   }
 
   private toggleBody(html: JQuery): void {

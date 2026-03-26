@@ -174,6 +174,13 @@ $panel-width: 240px;
   font-size: 11px;
   color: #f0c8b0;
   white-space: nowrap;
+  cursor: context-menu;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: rgba(200, 60, 40, 0.55);
+    border-color: rgba(220, 120, 100, 0.8);
+  }
 }
 
 .tbtk-no-conditions {

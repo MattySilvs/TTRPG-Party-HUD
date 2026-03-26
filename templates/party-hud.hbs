@@ -35,7 +35,9 @@
       <div class="tbtk-conditions">
         {{#if this.conditions.length}}
           {{#each this.conditions}}
-          <span class="tbtk-condition-tag">
+          <span class="tbtk-condition-tag"
+                data-condition-id="{{this.id}}"
+                title="Right-click to remove">
             {{this.name}}{{#if this.value}} {{this.value}}{{/if}}
           </span>
           {{/each}}
