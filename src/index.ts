@@ -1,15 +1,12 @@
 import "../styles/module.scss";
 import { registerSettings } from "./settings.js";
 import { injectHud } from "./features/party-hud/PartyHud.js";
-import { initAutopilot } from "./features/npc-autopilot/NpcAutopilot.js";
-
 Hooks.once("init", () => {
   registerSettings();
 });
 
 Hooks.once("ready", () => {
   injectHud();
-  initAutopilot();
 });
 
 // Re-render the HUD whenever any actor is updated (HP change, condition added, etc.)

@@ -19,18 +19,6 @@
         "Name": "Restrict player visibility",
         "Hint": "When enabled, players only see HP bars for other party members. When disabled (default), players see full data for everyone."
       },
-      "AutopilotEnabled": {
-        "Name": "Enable NPC Autopilot",
-        "Hint": "When enabled, NPC attacks and abilities automatically roll through their full pipeline (attack → damage → conditions) without dialog interruptions. Area abilities will still pause to let the GM place the template."
-      },
-      "AutoApplyDamage": {
-        "Name": "Auto-apply damage",
-        "Hint": "Automatically deduct damage from target HP after rolls. Disable to see roll results without modifying HP."
-      },
-      "AutoApplyConditions": {
-        "Name": "Auto-apply conditions",
-        "Hint": "Automatically add conditions to targets based on hit results and ability effects (e.g. Grabbed on a hit with the Grab trait)."
-      }
     }
   }
 }

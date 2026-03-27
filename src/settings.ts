@@ -27,34 +27,6 @@ export function registerSettings(): void {
     onChange: () => window.tabletopToolkit?.partyHud?.render(),
   });
 
-  // ── NPC Autopilot ─────────────────────────────────────────────────────────
-
-  game.settings.register(MODULE_ID, "autopilotEnabled", {
-    name: "TBTK.Settings.AutopilotEnabled.Name",
-    hint: "TBTK.Settings.AutopilotEnabled.Hint",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-  });
-
-  game.settings.register(MODULE_ID, "autoApplyDamage", {
-    name: "TBTK.Settings.AutoApplyDamage.Name",
-    hint: "TBTK.Settings.AutoApplyDamage.Hint",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-  });
-
-  game.settings.register(MODULE_ID, "autoApplyConditions", {
-    name: "TBTK.Settings.AutoApplyConditions.Name",
-    hint: "TBTK.Settings.AutoApplyConditions.Hint",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-  });
 }
 
 export function getSetting<T>(key: string): T {
