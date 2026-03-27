@@ -1,24 +1,14 @@
 {
-  "TBTK": {
-    "PartyHud": {
-      "Title": "Party",
-      "Collapse": "Collapse",
-      "Expand": "Expand",
-      "HP": "HP",
-      "Conditions": "Conditions",
-      "NoConditions": "None",
-      "Effects": "Effects",
-      "NoEffects": "None"
-    },
-    "Settings": {
-      "HudEnabled": {
-        "Name": "Enable Party HUD",
-        "Hint": "Show the Party HUD panel on the game canvas."
-      },
-      "RestrictToHpOnly": {
-        "Name": "Restrict player visibility",
-        "Hint": "When enabled, players only see HP bars for other party members. When disabled (default), players see full data for everyone."
-      }
-    }
-  }
+  "TBTK.PartyHud.Title": "Party",
+  "TBTK.PartyHud.Collapse": "Collapse",
+  "TBTK.PartyHud.Expand": "Expand",
+  "TBTK.PartyHud.HP": "HP",
+  "TBTK.PartyHud.Conditions": "Conditions",
+  "TBTK.PartyHud.NoConditions": "None",
+  "TBTK.PartyHud.Effects": "Effects",
+  "TBTK.PartyHud.NoEffects": "None",
+  "TBTK.Settings.HudEnabled.Name": "Enable Party HUD",
+  "TBTK.Settings.HudEnabled.Hint": "Show the Party HUD panel on the game canvas.",
+  "TBTK.Settings.RestrictToHpOnly.Name": "Restrict player visibility",
+  "TBTK.Settings.RestrictToHpOnly.Hint": "When enabled, players only see HP bars for other party members. When disabled (default), players see full data for everyone."
 }
