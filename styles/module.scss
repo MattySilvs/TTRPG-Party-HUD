@@ -151,13 +151,13 @@ $panel-width: 240px;
   pointer-events: none;
 }
 
-// ── Conditions drawer ────────────────────────────────────────────────────
+// ── Expanded drawer (conditions + effects) ───────────────────────────────
 
-.tbtk-conditions {
+.tbtk-drawer {
+  padding: 4px 8px 6px 36px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 5px 0 2px 36px;
+  flex-direction: column;
+  gap: 6px;
   animation: tbtk-slide-down 0.12s ease;
 }
 
@@ -165,6 +165,28 @@ $panel-width: 240px;
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+.tbtk-drawer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tbtk-drawer-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-dim;
+}
+
+.tbtk-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+// ── Condition tags ────────────────────────────────────────────────────────
 
 .tbtk-condition-tag {
   background: rgba(180, 80, 60, 0.35);
@@ -183,7 +205,44 @@ $panel-width: 240px;
   }
 }
 
-.tbtk-no-conditions {
+// ── Effect tags ───────────────────────────────────────────────────────────
+
+.tbtk-effect-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(60, 100, 180, 0.3);
+  border: 1px solid rgba(90, 140, 210, 0.5);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 11px;
+  color: #b8d4f8;
+  white-space: nowrap;
+  cursor: context-menu;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: rgba(50, 90, 180, 0.55);
+    border-color: rgba(100, 160, 230, 0.8);
+  }
+}
+
+.tbtk-effect-icon {
+  width: 12px;
+  height: 12px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tbtk-effect-duration {
+  font-size: 10px;
+  color: rgba(180, 210, 255, 0.6);
+  font-style: italic;
+  margin-left: 2px;
+}
+
+.tbtk-no-entry {
   font-size: 11px;
   color: $text-dim;
   font-style: italic;

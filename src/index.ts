@@ -17,11 +17,10 @@ Hooks.on("updateActor", (_actor: Actor, _diff: object, _options: object, _userId
   (window as any).tabletopToolkit?.partyHud?.render();
 });
 
-// Also re-render when active effects change (conditions added/removed in PF2e)
-Hooks.on("createActiveEffect", () => {
-  (window as any).tabletopToolkit?.partyHud?.render();
-});
-
-Hooks.on("deleteActiveEffect", () => {
-  (window as any).tabletopToolkit?.partyHud?.render();
-});
+// Re-render when active effects or embedded items change
+// (covers condition and effect addition/removal in PF2e)
+Hooks.on("createActiveEffect", () => (window as any).tabletopToolkit?.partyHud?.render());
+Hooks.on("deleteActiveEffect", () => (window as any).tabletopToolkit?.partyHud?.render());
+Hooks.on("createItem", () => (window as any).tabletopToolkit?.partyHud?.render());
+Hooks.on("deleteItem", () => (window as any).tabletopToolkit?.partyHud?.render());
+Hooks.on("updateItem", () => (window as any).tabletopToolkit?.partyHud?.render());

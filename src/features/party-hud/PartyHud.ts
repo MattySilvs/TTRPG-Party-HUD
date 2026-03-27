@@ -1,5 +1,5 @@
 import { getSetting, MODULE_ID } from "../../settings.js";
-import { getConditions, getHP, getPrimaryResource } from "../../utils/system.js";
+import { getConditions, getEffects, getHP, getPrimaryResource } from "../../utils/system.js";
 
 /** Tracks which actor rows have their conditions section expanded. */
 const expandedActors = new Set<string>();
@@ -40,6 +40,7 @@ export class PartyHud extends Application {
         resource,
         resourcePercent,
         conditions: getConditions(actor),
+        effects: getEffects(actor),
         conditionsExpanded: expandedActors.has(actor.id!),
       };
     });
@@ -79,23 +80,34 @@ export class PartyHud extends Application {
     html.find(".tbtk-condition-tag").on("contextmenu", (event) => {
       event.preventDefault();
       event.stopPropagation();
-
-      const tag = $(event.currentTarget);
-      const conditionId = tag.data("condition-id") as string;
-      const actorId = tag.closest(".tbtk-member").data("actor-id") as string;
-      if (!conditionId || !actorId) return;
-
-      const actor = game.actors?.get(actorId);
-      if (!actor) return;
-
-      // Only allow removal if the user owns this actor or is GM
-      if (!actor.isOwner) {
-        ui.notifications?.warn("You don't have permission to modify this character's conditions.");
-        return;
-      }
-
-      actor.deleteEmbeddedDocuments("Item", [conditionId]);
+      this.removeEmbeddedItem(
+        $(event.currentTarget).data("condition-id") as string,
+        $(event.currentTarget).closest(".tbtk-member").data("actor-id") as string,
+        "condition"
+      );
     });
+
+    // Right-click an effect tag → remove that effect from the actor
+    html.find(".tbtk-effect-tag").on("contextmenu", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      this.removeEmbeddedItem(
+        $(event.currentTarget).data("effect-id") as string,
+        $(event.currentTarget).closest(".tbtk-member").data("actor-id") as string,
+        "effect"
+      );
+    });
+  }
+
+  private removeEmbeddedItem(itemId: string, actorId: string, type: "condition" | "effect"): void {
+    if (!itemId || !actorId) return;
+    const actor = game.actors?.get(actorId);
+    if (!actor) return;
+    if (!actor.isOwner) {
+      ui.notifications?.warn(`You don't have permission to modify this character's ${type}s.`);
+      return;
+    }
+    actor.deleteEmbeddedDocuments("Item", [itemId]);
   }
 
   private toggleBody(html: JQuery): void {

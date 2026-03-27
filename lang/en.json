@@ -5,7 +5,10 @@
       "Collapse": "Collapse",
       "Expand": "Expand",
       "HP": "HP",
-      "NoConditions": "No active conditions"
+      "Conditions": "Conditions",
+      "NoConditions": "None",
+      "Effects": "Effects",
+      "NoEffects": "None"
     },
     "Settings": {
       "HudEnabled": {

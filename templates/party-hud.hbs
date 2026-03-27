@@ -32,18 +32,46 @@
       </div>
 
       {{#if this.conditionsExpanded}}
-      <div class="tbtk-conditions">
-        {{#if this.conditions.length}}
-          {{#each this.conditions}}
-          <span class="tbtk-condition-tag"
-                data-condition-id="{{this.id}}"
-                title="Right-click to remove">
-            {{this.name}}{{#if this.value}} {{this.value}}{{/if}}
-          </span>
-          {{/each}}
-        {{else}}
-          <span class="tbtk-no-conditions">{{localize "TBTK.PartyHud.NoConditions"}}</span>
-        {{/if}}
+      <div class="tbtk-drawer">
+
+        {{!-- Conditions --}}
+        <div class="tbtk-drawer-section">
+          <span class="tbtk-drawer-label">{{localize "TBTK.PartyHud.Conditions"}}</span>
+          <div class="tbtk-tags">
+            {{#if this.conditions.length}}
+              {{#each this.conditions}}
+              <span class="tbtk-condition-tag"
+                    data-condition-id="{{this.id}}"
+                    title="Right-click to remove">
+                {{this.name}}{{#if this.value}} {{this.value}}{{/if}}
+              </span>
+              {{/each}}
+            {{else}}
+              <span class="tbtk-no-entry">{{localize "TBTK.PartyHud.NoConditions"}}</span>
+            {{/if}}
+          </div>
+        </div>
+
+        {{!-- Effects --}}
+        <div class="tbtk-drawer-section">
+          <span class="tbtk-drawer-label">{{localize "TBTK.PartyHud.Effects"}}</span>
+          <div class="tbtk-tags">
+            {{#if this.effects.length}}
+              {{#each this.effects}}
+              <span class="tbtk-effect-tag"
+                    data-effect-id="{{this.id}}"
+                    title="{{#if this.duration}}{{this.duration}} — {{/if}}Right-click to remove">
+                {{#if this.img}}<img class="tbtk-effect-icon" src="{{this.img}}" alt="" />{{/if}}
+                {{this.name}}{{#if this.badge}} ({{this.badge}}){{/if}}
+                {{#if this.duration}}<em class="tbtk-effect-duration">{{this.duration}}</em>{{/if}}
+              </span>
+              {{/each}}
+            {{else}}
+              <span class="tbtk-no-entry">{{localize "TBTK.PartyHud.NoEffects"}}</span>
+            {{/if}}
+          </div>
+        </div>
+
       </div>
       {{/if}}
 
