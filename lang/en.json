@@ -18,7 +18,7 @@
       "RestrictToHpOnly": {
         "Name": "Restrict player visibility",
         "Hint": "When enabled, players only see HP bars for other party members. When disabled (default), players see full data for everyone."
-      },
+      }
     }
   }
 }
