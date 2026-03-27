@@ -210,13 +210,13 @@ export class PartyHud extends Application {
   private getPartyActors(): Actor[] {
     const folderName = getSetting<string>("partyFolderName").trim();
 
-    const partyFolder = game.folders?.find(
-      (f) => f.type === "Actor" && f.name.toLowerCase() === folderName.toLowerCase()
+    const partyFolder = (game.folders?.contents ?? []).find(
+      (f: any) => f.type === "Actor" && f.name.toLowerCase() === folderName.toLowerCase()
     );
 
     if (partyFolder) {
       return (game.actors?.filter(
-        (a) => a.type === "character" && a.folder?.id === partyFolder.id
+        (a) => a.type === "character" && a.folderId === partyFolder.id
       ) as Actor[]) ?? [];
     }
 
