@@ -186,45 +186,101 @@ $panel-width: 240px;
   gap: 3px;
 }
 
-// ── Condition tags ────────────────────────────────────────────────────────
+// ── Tag sentiment palette ─────────────────────────────────────────────────
+//
+// Both condition and effect tags share this colour system via
+// .tbtk-sentiment-{tier} modifier classes.
+//
+//  neutral  → grey/white  (observational states)
+//  good     → green       (beneficial)
+//  bad-low  → yellow      (minor debuff: prone, dazzled, off-guard…)
+//  bad-mid  → orange      (significant: grabbed, frightened, slowed…)
+//  bad-high → red         (severe: dying, paralyzed, doomed…)
 
-.tbtk-condition-tag {
-  background: rgba(180, 80, 60, 0.35);
-  border: 1px solid rgba(200, 100, 80, 0.5);
-  border-radius: 3px;
-  padding: 1px 6px;
-  font-size: 11px;
-  color: #f0c8b0;
-  white-space: nowrap;
-  cursor: context-menu;
-  transition: background 0.15s, border-color 0.15s;
+$sentiment-neutral-bg:       rgba(160, 160, 160, 0.15);
+$sentiment-neutral-border:   rgba(200, 200, 200, 0.30);
+$sentiment-neutral-color:    #d8d8d8;
+$sentiment-neutral-hover-bg: rgba(180, 180, 180, 0.28);
 
-  &:hover {
-    background: rgba(200, 60, 40, 0.55);
-    border-color: rgba(220, 120, 100, 0.8);
-  }
-}
+$sentiment-good-bg:       rgba(50, 160, 90, 0.28);
+$sentiment-good-border:   rgba(80, 200, 120, 0.50);
+$sentiment-good-color:    #a8f0bc;
+$sentiment-good-hover-bg: rgba(50, 180, 100, 0.45);
 
-// ── Effect tags ───────────────────────────────────────────────────────────
+$sentiment-low-bg:       rgba(180, 155, 30, 0.28);
+$sentiment-low-border:   rgba(220, 190, 50, 0.50);
+$sentiment-low-color:    #f0e090;
+$sentiment-low-hover-bg: rgba(200, 175, 30, 0.45);
 
-.tbtk-effect-tag {
+$sentiment-mid-bg:       rgba(200, 110, 30, 0.28);
+$sentiment-mid-border:   rgba(235, 140, 50, 0.55);
+$sentiment-mid-color:    #f8c880;
+$sentiment-mid-hover-bg: rgba(220, 120, 30, 0.48);
+
+$sentiment-high-bg:       rgba(190, 50, 40, 0.30);
+$sentiment-high-border:   rgba(220, 80, 65, 0.55);
+$sentiment-high-color:    #f8a8a0;
+$sentiment-high-hover-bg: rgba(210, 55, 45, 0.50);
+
+// ── Shared tag base ───────────────────────────────────────────────────────
+
+%tbtk-tag-base {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  background: rgba(60, 100, 180, 0.3);
-  border: 1px solid rgba(90, 140, 210, 0.5);
   border-radius: 3px;
   padding: 1px 6px;
   font-size: 11px;
-  color: #b8d4f8;
   white-space: nowrap;
   cursor: context-menu;
   transition: background 0.15s, border-color 0.15s;
+  border: 1px solid transparent;
 
-  &:hover {
-    background: rgba(50, 90, 180, 0.55);
-    border-color: rgba(100, 160, 230, 0.8);
-  }
+  // Default (no sentiment class) falls back to neutral
+  background:   $sentiment-neutral-bg;
+  border-color: $sentiment-neutral-border;
+  color:        $sentiment-neutral-color;
+  &:hover { background: $sentiment-neutral-hover-bg; }
+}
+
+.tbtk-condition-tag { @extend %tbtk-tag-base; }
+.tbtk-effect-tag    { @extend %tbtk-tag-base; }
+
+// ── Sentiment modifiers ───────────────────────────────────────────────────
+
+.tbtk-sentiment-neutral {
+  background: $sentiment-neutral-bg   !important;
+  border-color: $sentiment-neutral-border !important;
+  color: $sentiment-neutral-color     !important;
+  &:hover { background: $sentiment-neutral-hover-bg !important; }
+}
+
+.tbtk-sentiment-good {
+  background: $sentiment-good-bg     !important;
+  border-color: $sentiment-good-border !important;
+  color: $sentiment-good-color       !important;
+  &:hover { background: $sentiment-good-hover-bg !important; }
+}
+
+.tbtk-sentiment-bad-low {
+  background: $sentiment-low-bg      !important;
+  border-color: $sentiment-low-border !important;
+  color: $sentiment-low-color        !important;
+  &:hover { background: $sentiment-low-hover-bg !important; }
+}
+
+.tbtk-sentiment-bad-mid {
+  background: $sentiment-mid-bg      !important;
+  border-color: $sentiment-mid-border !important;
+  color: $sentiment-mid-color        !important;
+  &:hover { background: $sentiment-mid-hover-bg !important; }
+}
+
+.tbtk-sentiment-bad-high {
+  background: $sentiment-high-bg     !important;
+  border-color: $sentiment-high-border !important;
+  color: $sentiment-high-color       !important;
+  &:hover { background: $sentiment-high-hover-bg !important; }
 }
 
 .tbtk-effect-icon {
