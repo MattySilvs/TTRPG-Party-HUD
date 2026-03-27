@@ -76,6 +76,22 @@ export class PartyHud extends Application {
       actor?.sheet?.render(true);
     });
 
+    // Left-click a condition tag → open its compendium sheet (rules text)
+    html.find(".tbtk-condition-tag").on("click", (event) => {
+      event.stopPropagation();
+      const conditionId = $(event.currentTarget).data("condition-id") as string;
+      const actorId = $(event.currentTarget).closest(".tbtk-member").data("actor-id") as string;
+      this.openItemSheet(conditionId, actorId, "pf2e.conditionitems");
+    });
+
+    // Left-click an effect tag → open its sheet (effect details)
+    html.find(".tbtk-effect-tag").on("click", (event) => {
+      event.stopPropagation();
+      const effectId = $(event.currentTarget).data("effect-id") as string;
+      const actorId = $(event.currentTarget).closest(".tbtk-member").data("actor-id") as string;
+      this.openItemSheet(effectId, actorId, null);
+    });
+
     // Right-click a condition tag → remove that condition from the actor
     html.find(".tbtk-condition-tag").on("contextmenu", (event) => {
       event.preventDefault();
@@ -97,6 +113,69 @@ export class PartyHud extends Application {
         "effect"
       );
     });
+  }
+
+  /**
+   * Opens the sheet for a condition or effect.
+   *
+   * Strategy:
+   *  1. Get the embedded item from the actor via itemId.
+   *  2. If the item has a compendium sourceId flag, render that compendium
+   *     entry — it has the full canonical rules text.
+   *  3. If no sourceId (e.g. a custom effect), fall back to the actor's
+   *     embedded item sheet.
+   *  4. If fallbackPack is provided and steps 1-3 all fail, search that
+   *     pack by name as a last resort (handles edge cases where the
+   *     condition isn't embedded as an item).
+   */
+  private async openItemSheet(
+    itemId: string,
+    actorId: string,
+    fallbackPack: string | null
+  ): Promise<void> {
+    if (!itemId || !actorId) return;
+
+    const actor = game.actors?.get(actorId);
+    const embeddedItem = actor?.items?.get(itemId);
+
+    // Prefer the compendium source so the user sees the canonical entry
+    const sourceId: string | undefined =
+      embeddedItem?.flags?.core?.sourceId ?? embeddedItem?.flags?.pf2e?.rulesSelections;
+
+    if (sourceId) {
+      try {
+        const compendiumDoc = await fromUuid(sourceId);
+        if (compendiumDoc) {
+          (compendiumDoc as any).sheet?.render(true);
+          return;
+        }
+      } catch {
+        // sourceId didn't resolve — fall through
+      }
+    }
+
+    // Fall back to rendering the actor's embedded item directly
+    if (embeddedItem) {
+      embeddedItem.sheet?.render(true);
+      return;
+    }
+
+    // Last resort: search the specified compendium pack by item name
+    if (fallbackPack) {
+      const pack = game.packs.get(fallbackPack);
+      if (!pack) return;
+      const index = await pack.getIndex();
+      // Try to match by the text content of the tag (actor name not available here,
+      // so we search the whole index for the best slug/name match)
+      const itemName = embeddedItem?.name;
+      if (!itemName) return;
+      const entry = index.find(
+        (e) => e.name.toLowerCase() === itemName.toLowerCase()
+      );
+      if (!entry) return;
+      const doc = await pack.getDocument(entry._id);
+      (doc as any)?.sheet?.render(true);
+    }
   }
 
   private removeEmbeddedItem(itemId: string, actorId: string, type: "condition" | "effect"): void {
