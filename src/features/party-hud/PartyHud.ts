@@ -197,33 +197,13 @@ export class PartyHud extends Application {
     btn.html(collapsed ? "&#x2013;" : "&#xFF0B;");
   }
 
-  /**
-   * Returns actors to display in the HUD.
-   *
-   * If a folder matching the configured "Party Folder Name" exists in the
-   * Actors directory, only characters inside that folder are shown —
-   * regardless of how many characters a player owns.
-   *
-   * If no matching folder is found, falls back to all player-owned characters
-   * so the HUD is never unexpectedly empty.
-   */
+  /** Returns all player-owned PCs currently active in the game. */
   private getPartyActors(): Actor[] {
-    const folderName = getSetting<string>("partyFolderName").trim();
-
-    const partyFolder = game.folders?.find(
-      (f) => f.type === "Actor" && f.name.toLowerCase() === folderName.toLowerCase()
+    return (
+      (game.actors?.filter(
+        (a) => a.hasPlayerOwner && a.type === "character"
+      ) as Actor[]) ?? []
     );
-
-    if (partyFolder) {
-      return (game.actors?.filter(
-        (a) => a.type === "character" && a.folder?.id === partyFolder.id
-      ) as Actor[]) ?? [];
-    }
-
-    // Fallback: all player-owned characters
-    return (game.actors?.filter(
-      (a) => a.hasPlayerOwner && a.type === "character"
-    ) as Actor[]) ?? [];
   }
 
   override render(force?: boolean, options?: Partial<ApplicationOptions>): this {

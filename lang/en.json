@@ -19,10 +19,6 @@
         "Name": "Restrict player visibility",
         "Hint": "When enabled, players only see HP bars for other party members. When disabled (default), players see full data for everyone."
       },
-      "PartyFolderName": {
-        "Name": "Party folder name",
-        "Hint": "Name of the Actors folder whose contents appear in the Party HUD. Defaults to 'The Party'. If no folder with this name exists, all player-owned characters are shown instead."
-      },
       "AutopilotEnabled": {
         "Name": "Enable NPC Autopilot",
         "Hint": "When enabled, NPC attacks and abilities automatically roll through their full pipeline (attack → damage → conditions) without dialog interruptions. Area abilities will still pause to let the GM place the template."

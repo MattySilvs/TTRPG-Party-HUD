@@ -27,16 +27,6 @@ export function registerSettings(): void {
     onChange: () => window.tabletopToolkit?.partyHud?.render(),
   });
 
-  game.settings.register(MODULE_ID, "partyFolderName", {
-    name: "TBTK.Settings.PartyFolderName.Name",
-    hint: "TBTK.Settings.PartyFolderName.Hint",
-    scope: "world",
-    config: true,
-    type: String,
-    default: "The Party",
-    onChange: () => window.tabletopToolkit?.partyHud?.render(),
-  });
-
   // ── NPC Autopilot ─────────────────────────────────────────────────────────
 
   game.settings.register(MODULE_ID, "autopilotEnabled", {
